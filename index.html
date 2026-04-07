@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -8,11 +10,15 @@
 
 <style>
 
+/* Body */
+
 body {
 margin: 0;
 font-family: Arial, sans-serif;
 background-color: #f4f7fb;
 }
+
+/* Sidebar */
 
 .sidebar {
 position: fixed;
@@ -42,10 +48,14 @@ font-size: 14px;
 background-color: #133c73;
 }
 
+/* Main Area */
+
 .main {
 margin-left: 240px;
 padding: 20px;
 }
+
+/* Header */
 
 .header {
 background-color: white;
@@ -55,12 +65,16 @@ margin-bottom: 20px;
 box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
+/* Search */
+
 .search-box {
 width: 100%;
 padding: 10px;
 border-radius: 6px;
 border: 1px solid #ccc;
 }
+
+/* Cards */
 
 .cards {
 display: grid;
@@ -92,18 +106,36 @@ font-size: 13px;
 color: #666;
 }
 
+/* Modules */
+
+.module {
+display: none;
+background-color: white;
+padding: 20px;
+border-radius: 10px;
+box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+margin-top: 20px;
+}
+
+.result-item {
+padding: 8px;
+border-bottom: 1px solid #eee;
+}
+
 </style>
 
 </head>
 
 <body>
 
+<!-- Sidebar -->
+
 <div class="sidebar">
 
 <h2>✈ Aviation</h2>
 
-<a href="#">Dashboard</a>
-<a href="#">GDS Commands</a>
+<a href="#" onclick="showDashboard()">Dashboard</a>
+<a href="#" onclick="openModule('gds')">GDS Commands</a>
 <a href="#">Airlines</a>
 <a href="#">Airports</a>
 <a href="#">Lounges</a>
@@ -117,7 +149,11 @@ color: #666;
 
 </div>
 
+<!-- Main -->
+
 <div class="main">
+
+<!-- Header -->
 
 <div class="header">
 
@@ -129,51 +165,153 @@ placeholder="Search commands, airlines, airports..."
 
 </div>
 
-<div class="cards">
+<!-- Dashboard Cards -->
 
-<div class="card">
-<h3>GDS Command Center</h3>
+<div id="dashboard" class="cards">
+
+<div class="card" onclick="openModule('gds')">
+<h3>🖥 GDS Command Center</h3>
 <p>Search Amadeus & Sabre commands</p>
 </div>
 
 <div class="card">
-<h3>Airline Directory</h3>
+<h3>✈ Airline Directory</h3>
 <p>Find airline hubs and details</p>
 </div>
 
 <div class="card">
-<h3>Airport Directory</h3>
+<h3>🌍 Airport Directory</h3>
 <p>Access global airport information</p>
 </div>
 
 <div class="card">
-<h3>Lounge Directory</h3>
+<h3>🛋 Lounge Directory</h3>
 <p>Check lounge access & facilities</p>
 </div>
 
 <div class="card">
-<h3>Knowledge Hub</h3>
+<h3>📚 Knowledge Hub</h3>
 <p>Learn ticketing and aviation basics</p>
 </div>
 
 <div class="card">
-<h3>Tools & Calculators</h3>
+<h3>🧮 Tools & Calculators</h3>
 <p>Use aviation productivity tools</p>
 </div>
 
 <div class="card">
-<h3>Glossary</h3>
+<h3>📖 Glossary</h3>
 <p>Understand aviation terminology</p>
 </div>
 
 <div class="card">
-<h3>Simulation Mode</h3>
+<h3>🎮 Simulation Mode</h3>
 <p>Practice ticketing workflows</p>
 </div>
 
 </div>
 
+<!-- GDS Module -->
+
+<div id="gdsModule" class="module">
+
+<h2>GDS Command Search</h2>
+
+<input 
+type="text"
+id="gdsSearch"
+placeholder="Type command like AN, NM, SS..."
+onkeyup="searchCommand()"
+class="search-box"
+>
+
+<div id="resultBox"></div>
+
 </div>
+
+</div>
+
+<!-- JavaScript -->
+
+<script>
+
+/* Sample GDS Commands */
+
+const commands = [
+
+{ name: "AN", desc: "Availability Neutral" },
+
+{ name: "NM", desc: "Name Entry" },
+
+{ name: "SS", desc: "Sell Seat" },
+
+{ name: "TKTL", desc: "Ticket Time Limit" },
+
+{ name: "FXP", desc: "Price Itinerary" },
+
+{ name: "ER", desc: "End and Retrieve" },
+
+{ name: "RF", desc: "Received From" },
+
+{ name: "RT", desc: "Retrieve PNR" },
+
+{ name: "IG", desc: "Ignore PNR" }
+
+];
+
+/* Show Dashboard */
+
+function showDashboard(){
+
+document.getElementById("dashboard").style.display = "grid";
+
+document.getElementById("gdsModule").style.display = "none";
+
+}
+
+/* Open Module */
+
+function openModule(module){
+
+document.getElementById("dashboard").style.display = "none";
+
+if(module === "gds"){
+
+document.getElementById("gdsModule").style.display = "block";
+
+}
+
+}
+
+/* Search Command */
+
+function searchCommand(){
+
+let input =
+document.getElementById("gdsSearch")
+.value.toUpperCase();
+
+let result = commands.filter(c =>
+c.name.includes(input)
+);
+
+let output = "";
+
+result.forEach(c=>{
+
+output += `
+<div class="result-item">
+<b>${c.name}</b> — ${c.desc}
+</div>
+`;
+
+});
+
+document.getElementById("resultBox").innerHTML = output;
+
+}
+
+</script>
 
 </body>
 

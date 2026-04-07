@@ -1,5 +1,14 @@
-body {
+/* Global Reset */
+
+* {
 margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+
+/* Body */
+
+body {
 font-family: 'Inter', sans-serif;
 background-color: #0f172a;
 color: white;
@@ -8,27 +17,40 @@ color: white;
 /* Sidebar */
 
 .sidebar {
-width: 260px;
+width: 240px;
 height: 100vh;
-background: #020617;
+background: linear-gradient(
+180deg,
+#020617,
+#020617,
+#020617,
+#020617
+);
 position: fixed;
-padding: 20px;
+padding: 24px 16px;
 border-right: 1px solid #1e293b;
 }
+
+/* Logo */
 
 .logo {
 font-size: 20px;
 font-weight: 600;
-margin-bottom: 30px;
+margin-bottom: 40px;
+color: white;
 }
+
+/* Sidebar Links */
 
 .sidebar nav a {
 display: block;
-padding: 12px;
+padding: 12px 14px;
 color: #94a3b8;
 text-decoration: none;
-border-radius: 8px;
-margin-bottom: 5px;
+border-radius: 10px;
+margin-bottom: 6px;
+font-size: 14px;
+transition: 0.2s;
 }
 
 .sidebar nav a:hover {
@@ -36,30 +58,93 @@ background: #1e293b;
 color: white;
 }
 
-/* Main */
+/* Main Layout */
 
 .main {
-margin-left: 260px;
-padding: 20px;
+margin-left: 240px;
+padding: 24px 32px;
 }
 
-/* Dashboard */
+/* Topbar */
+
+.topbar {
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin-bottom: 28px;
+}
+
+/* Search Box */
+
+.global-search {
+width: 50%;
+padding: 12px 14px;
+border-radius: 10px;
+border: 1px solid #1e293b;
+background: #020617;
+color: white;
+outline: none;
+}
+
+/* User Name */
+
+.user {
+font-size: 14px;
+color: #94a3b8;
+}
+
+/* Dashboard Grid */
 
 .dashboard {
 display: grid;
-grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-gap: 20px;
+grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+gap: 24px;
 }
+
+/* Cards */
 
 .card {
-background: #020617;
-padding: 20px;
-border-radius: 12px;
+background: linear-gradient(
+145deg,
+#020617,
+#020617
+);
+
+padding: 24px;
+
+border-radius: 16px;
+
 border: 1px solid #1e293b;
-transition: 0.2s;
+
+box-shadow:
+0 8px 24px rgba(0,0,0,0.4);
+
+transition: 0.25s;
 }
 
+/* Card Hover */
+
 .card:hover {
-transform: translateY(-5px);
+transform: translateY(-6px);
+
 border-color: #3b82f6;
+
+box-shadow:
+0 12px 30px rgba(59,130,246,0.2);
+}
+
+/* Card Titles */
+
+.card h3 {
+font-size: 18px;
+margin-bottom: 8px;
+color: white;
+}
+
+/* Card Description */
+
+.card p {
+font-size: 14px;
+color: #94a3b8;
+line-height: 1.5;
 }

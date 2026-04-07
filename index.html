@@ -63,8 +63,6 @@ margin-bottom: 20px;
 box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-/* Search */
-
 .search-box {
 width: 100%;
 padding: 10px;
@@ -93,17 +91,6 @@ transition: 0.2s;
 transform: translateY(-3px);
 }
 
-.card h3 {
-margin: 0;
-font-size: 16px;
-color: #0b2545;
-}
-
-.card p {
-font-size: 13px;
-color: #666;
-}
-
 /* Modules */
 
 .module {
@@ -116,18 +103,25 @@ margin-top: 20px;
 }
 
 .result-item {
-padding: 10px;
+padding: 12px;
 border-bottom: 1px solid #eee;
 }
 
 .command-title {
 font-weight: bold;
 color: #0b2545;
+font-size: 16px;
 }
 
 .command-desc {
 font-size: 13px;
 color: #555;
+}
+
+.command-cat {
+font-size: 12px;
+color: #888;
+margin-top: 3px;
 }
 
 </style>
@@ -156,7 +150,7 @@ color: #555;
 <input 
 type="text" 
 class="search-box" 
-placeholder="Search commands, airlines, airports..."
+placeholder="Search commands..."
 >
 
 </div>
@@ -168,7 +162,7 @@ placeholder="Search commands, airlines, airports..."
 <div class="card" onclick="openModule('gds')">
 
 <h3>🖥 GDS Command Center</h3>
-<p>Search Amadeus Commands</p>
+<p>Professional Command Search</p>
 
 </div>
 
@@ -196,56 +190,62 @@ class="search-box"
 
 <script>
 
-/* Real GDS Commands */
+/* Categorized Commands */
 
 const commands = [
 
-{ name:"AN", desc:"Availability Neutral" },
-{ name:"SS", desc:"Sell Seat" },
-{ name:"NM", desc:"Name Entry" },
-{ name:"AP", desc:"Add Phone Contact" },
-{ name:"TKTL", desc:"Ticket Time Limit" },
-{ name:"RF", desc:"Received From" },
-{ name:"ER", desc:"End and Retrieve" },
-{ name:"ET", desc:"End Transaction" },
-{ name:"IG", desc:"Ignore PNR" },
-{ name:"RT", desc:"Retrieve PNR" },
+/* Availability */
 
-{ name:"FXP", desc:"Price Itinerary" },
-{ name:"FXB", desc:"Best Buy Pricing" },
-{ name:"TTP", desc:"Issue Ticket" },
-{ name:"TRF", desc:"Refund Ticket" },
+{ name:"AN", desc:"Availability Neutral", cat:"Availability" },
+{ name:"DO", desc:"Display Flight Info", cat:"Availability" },
 
-{ name:"HE", desc:"Help Entry" },
-{ name:"HE AN", desc:"Help for Availability" },
+/* PNR Creation */
 
-{ name:"DO", desc:"Display Flight Info" },
-{ name:"MD", desc:"Move Down Screen" },
-{ name:"MU", desc:"Move Up Screen" },
+{ name:"NM", desc:"Name Entry", cat:"PNR Creation" },
+{ name:"AP", desc:"Add Phone Contact", cat:"PNR Creation" },
+{ name:"RF", desc:"Received From", cat:"PNR Creation" },
+{ name:"ER", desc:"End and Retrieve", cat:"PNR Creation" },
+{ name:"ET", desc:"End Transaction", cat:"PNR Creation" },
+{ name:"RT", desc:"Retrieve PNR", cat:"PNR Creation" },
+{ name:"IG", desc:"Ignore PNR", cat:"PNR Creation" },
 
-{ name:"QP", desc:"Queue Place" },
-{ name:"QI", desc:"Queue Ignore" },
-{ name:"QR", desc:"Queue Remove" },
+/* Ticketing */
 
-{ name:"SR", desc:"Add Special Service Request" },
-{ name:"OSI", desc:"Other Service Info" },
+{ name:"FXP", desc:"Price Itinerary", cat:"Ticketing" },
+{ name:"FXB", desc:"Best Buy Pricing", cat:"Ticketing" },
+{ name:"TTP", desc:"Issue Ticket", cat:"Ticketing" },
+{ name:"TKTL", desc:"Ticket Time Limit", cat:"Ticketing" },
 
-{ name:"RM", desc:"Add Remark" },
-{ name:"FE", desc:"Fare Endorsement" }
+/* Queue */
+
+{ name:"QP", desc:"Queue Place", cat:"Queue" },
+{ name:"QI", desc:"Queue Ignore", cat:"Queue" },
+{ name:"QR", desc:"Queue Remove", cat:"Queue" },
+
+/* SSR */
+
+{ name:"SR", desc:"Add Special Service Request", cat:"SSR/OSI" },
+{ name:"OSI", desc:"Other Service Info", cat:"SSR/OSI" },
+
+/* Remarks */
+
+{ name:"RM", desc:"Add Remark", cat:"Remarks" },
+{ name:"FE", desc:"Fare Endorsement", cat:"Remarks" },
+
+/* Refund */
+
+{ name:"TRF", desc:"Refund Ticket", cat:"Refund" }
 
 ];
 
-/* Show Dashboard */
+/* Navigation */
 
 function showDashboard(){
 
 document.getElementById("dashboard").style.display = "grid";
-
 document.getElementById("gdsModule").style.display = "none";
 
 }
-
-/* Open Module */
 
 function openModule(module){
 
@@ -259,7 +259,7 @@ document.getElementById("gdsModule").style.display = "block";
 
 }
 
-/* Search Command */
+/* Search */
 
 function searchCommand(){
 
@@ -284,6 +284,10 @@ ${c.name}
 
 <div class="command-desc">
 ${c.desc}
+</div>
+
+<div class="command-cat">
+Category: ${c.cat}
 </div>
 
 </div>

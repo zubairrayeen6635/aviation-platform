@@ -2,130 +2,204 @@
 <html lang="en">
 
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Global Aviation Platform</title>
+<title>Aviation Toolkit</title>
 
-<link rel="stylesheet" href="assets/css/main.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+
+/* RESET */
+
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+
+body {
+font-family: 'Inter', sans-serif;
+background: #f5f7fb;
+}
+
+/* SIDEBAR */
+
+.sidebar {
+position: fixed;
+left: 0;
+top: 0;
+width: 250px;
+height: 100vh;
+background: linear-gradient(180deg, #0c1e3c, #08142b);
+color: white;
+padding-top: 20px;
+}
+
+.sidebar h2 {
+padding: 0 20px;
+margin-bottom: 30px;
+font-size: 18px;
+}
+
+.nav-item {
+padding: 14px 20px;
+cursor: pointer;
+transition: 0.3s;
+}
+
+.nav-item:hover {
+background: rgba(255,255,255,0.1);
+}
+
+/* HEADER */
+
+.header {
+margin-left: 250px;
+height: 70px;
+background: white;
+display: flex;
+align-items: center;
+justify-content: space-between;
+padding: 0 30px;
+box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+/* MAIN */
+
+.main {
+margin-left: 250px;
+padding: 30px;
+}
+
+/* KPI CARDS */
+
+.kpi-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+gap: 18px;
+margin-bottom: 25px;
+}
+
+.kpi-card {
+background: white;
+padding: 18px;
+border-radius: 12px;
+box-shadow: 0 6px 18px rgba(0,0,0,0.05);
+}
+
+.kpi-card span {
+font-size: 22px;
+font-weight: 600;
+}
+
+/* TOOL CARDS */
+
+.card-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+gap: 22px;
+}
+
+.card {
+background: white;
+padding: 22px;
+border-radius: 14px;
+box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+transition: 0.25s;
+cursor: pointer;
+}
+
+.card:hover {
+transform: translateY(-5px);
+}
+
+</style>
 
 </head>
 
 <body>
 
-<!-- Sidebar -->
+<!-- SIDEBAR -->
 
 <div class="sidebar">
 
-<div class="logo">
+<h2>Aviation Toolkit</h2>
 
-✈ Global Aviation
-
-</div>
-
-<nav>
-
-<a href="#">Dashboard</a>
-
-<a href="#">GDS Commands</a>
-
-<a href="#">Airports</a>
-
-<a href="#">Airlines</a>
-
-<a href="#">PNR Simulator</a>
-
-<a href="#">Tools</a>
-
-<a href="#">Settings</a>
-
-</nav>
+<div class="nav-item">Dashboard</div>
+<div class="nav-item">Fare Calculator</div>
+<div class="nav-item">PNR Tools</div>
+<div class="nav-item">Time Converter</div>
+<div class="nav-item">Airport Tools</div>
+<div class="nav-item">Settings</div>
 
 </div>
 
-<!-- Main -->
+<!-- HEADER -->
+
+<div class="header">
+
+<h3>Dashboard</h3>
+
+<div>Profile</div>
+
+</div>
+
+<!-- MAIN -->
 
 <div class="main">
 
-<!-- Topbar -->
+<div class="kpi-grid">
 
-<div class="topbar">
+<div class="kpi-card">
+<p>Total Tools</p>
+<span>12</span>
+</div>
 
-<input 
-type="text"
-placeholder="Search anything..."
-class="global-search"
->
+<div class="kpi-card">
+<p>Recent Use</p>
+<span>5</span>
+</div>
 
-<div class="user">
+<div class="kpi-card">
+<p>Favorites</p>
+<span>3</span>
+</div>
 
-Zubair Imtiyaz Ahmad
-
+<div class="kpi-card">
+<p>Saved Results</p>
+<span>8</span>
 </div>
 
 </div>
 
-<!-- Dashboard -->
-
-<div class="dashboard">
+<div class="card-grid">
 
 <div class="card">
-
-<h3>GDS Command Center</h3>
-<p>Access global command database</p>
-
-</div>
-
-<div class="card">
-
-<h3>Airport Directory</h3>
-<p>Global airport database</p>
-
+<h3>Fare Calculator</h3>
+<p>Fare difference calculation tool</p>
 </div>
 
 <div class="card">
-
-<h3>Airline Directory</h3>
-<p>Global airline database</p>
-
+<h3>PNR Tool</h3>
+<p>Passenger workflow utilities</p>
 </div>
 
 <div class="card">
-
-<h3>PNR Simulator</h3>
-<p>Practice booking workflows</p>
-
+<h3>Time Converter</h3>
+<p>Convert airline time zones</p>
 </div>
 
 <div class="card">
-
-<h3>Flight Tools</h3>
-<p>Operational calculators</p>
-
-</div>
-
-<div class="card">
-
-<h3>Analytics</h3>
-<p>Operational insights</p>
-
+<h3>Airport Tool</h3>
+<p>Airport and airline utilities</p>
 </div>
 
 </div>
 
 </div>
-
-<script src="assets/js/app.js"></script>
 
 </body>
 
 </html>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Manrope:wght@400;600&display=swap" rel="stylesheet">
-body {
-
-font-family: 'Manrope', 'Inter', sans-serif;
-
-}

@@ -40,6 +40,7 @@ padding: 12px 20px;
 color: white;
 text-decoration: none;
 font-size: 14px;
+cursor: pointer;
 }
 
 .sidebar a:hover {
@@ -61,13 +62,6 @@ padding: 15px;
 border-radius: 8px;
 margin-bottom: 20px;
 box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-.search-box {
-width: 100%;
-padding: 10px;
-border-radius: 6px;
-border: 1px solid #ccc;
 }
 
 /* Cards */
@@ -102,26 +96,76 @@ box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 margin-top: 20px;
 }
 
+/* Search */
+
+.search-box {
+width: 100%;
+padding: 10px;
+border-radius: 6px;
+border: 1px solid #ccc;
+}
+
+/* Results */
+
 .result-item {
 padding: 12px;
 border-bottom: 1px solid #eee;
+cursor: pointer;
+}
+
+.result-item:hover {
+background-color: #f1f5fb;
 }
 
 .command-title {
 font-weight: bold;
 color: #0b2545;
-font-size: 16px;
-}
-
-.command-desc {
-font-size: 13px;
-color: #555;
 }
 
 .command-cat {
 font-size: 12px;
-color: #888;
-margin-top: 3px;
+color: #777;
+}
+
+/* Popup */
+
+.popup {
+display: none;
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: rgba(0,0,0,0.5);
+}
+
+.popup-content {
+background: white;
+padding: 20px;
+margin: 10% auto;
+width: 420px;
+border-radius: 10px;
+}
+
+.close-btn {
+float: right;
+cursor: pointer;
+font-weight: bold;
+color: red;
+}
+
+.back-btn {
+margin-bottom: 10px;
+padding: 8px 14px;
+background-color: #0b2545;
+color: white;
+border: none;
+border-radius: 6px;
+cursor: pointer;
+}
+
+.back-btn:hover {
+background-color: #133c73;
 }
 
 </style>
@@ -134,24 +178,18 @@ margin-top: 3px;
 
 <div class="sidebar">
 
-<h2>✈ Aviation</h2>
+<h2>✈ Aviation Toolkit</h2>
 
-<a href="#" onclick="showDashboard()">Dashboard</a>
-<a href="#" onclick="openModule('gds')">GDS Commands</a>
+<a onclick="showDashboard()">Dashboard</a>
+<a onclick="openModule('gds')">GDS Commands</a>
 
 </div>
-
-<!-- Main -->
 
 <div class="main">
 
 <div class="header">
 
-<input 
-type="text" 
-class="search-box" 
-placeholder="Search commands..."
->
+<h2>Professional Aviation Toolkit</h2>
 
 </div>
 
@@ -162,22 +200,24 @@ placeholder="Search commands..."
 <div class="card" onclick="openModule('gds')">
 
 <h3>🖥 GDS Command Center</h3>
-<p>Professional Command Search</p>
+<p>Search professional commands</p>
 
 </div>
 
 </div>
 
-<!-- GDS Module -->
+<!-- GDS MODULE -->
 
 <div id="gdsModule" class="module">
+
+<button class="back-btn" onclick="showDashboard()">← Back</button>
 
 <h2>GDS Command Search</h2>
 
 <input 
 type="text"
 id="gdsSearch"
-placeholder="Type command like AN, NM, FXP..."
+placeholder="Search command like AN, NM, FXP..."
 onkeyup="searchCommand()"
 class="search-box"
 >
@@ -188,78 +228,138 @@ class="search-box"
 
 </div>
 
+<!-- Popup -->
+
+<div id="popup" class="popup">
+
+<div class="popup-content">
+
+<span class="close-btn" onclick="closePopup()">X</span>
+
+<h3 id="popTitle"></h3>
+
+<p id="popDesc"></p>
+
+<p id="popSyntax"></p>
+
+<p id="popExample"></p>
+
+<p id="popCategory"></p>
+
+</div>
+
+</div>
+
 <script>
 
-/* Categorized Commands */
+/* MASTER COMMAND DATABASE */
 
 const commands = [
 
-/* Availability */
+{
+name:"AN",
+desc:"Availability Neutral",
+syntax:"AN DEL BOM 10JUN",
+example:"AN DEL BOM 10JUN",
+cat:"Availability"
+},
 
-{ name:"AN", desc:"Availability Neutral", cat:"Availability" },
-{ name:"DO", desc:"Display Flight Info", cat:"Availability" },
+{
+name:"NM",
+desc:"Name Entry",
+syntax:"NM1KHAN/ZUBAIR MR",
+example:"NM1AHMAD/ALI MR",
+cat:"PNR Creation"
+},
 
-/* PNR Creation */
+{
+name:"SS",
+desc:"Sell Seat",
+syntax:"SS1Y1",
+example:"SS1Y1",
+cat:"Booking"
+},
 
-{ name:"NM", desc:"Name Entry", cat:"PNR Creation" },
-{ name:"AP", desc:"Add Phone Contact", cat:"PNR Creation" },
-{ name:"RF", desc:"Received From", cat:"PNR Creation" },
-{ name:"ER", desc:"End and Retrieve", cat:"PNR Creation" },
-{ name:"ET", desc:"End Transaction", cat:"PNR Creation" },
-{ name:"RT", desc:"Retrieve PNR", cat:"PNR Creation" },
-{ name:"IG", desc:"Ignore PNR", cat:"PNR Creation" },
+{
+name:"AP",
+desc:"Add Phone Contact",
+syntax:"AP 9876543210",
+example:"AP DEL 9876543210",
+cat:"PNR Creation"
+},
 
-/* Ticketing */
+{
+name:"FXP",
+desc:"Price Itinerary",
+syntax:"FXP",
+example:"FXP",
+cat:"Ticketing"
+},
 
-{ name:"FXP", desc:"Price Itinerary", cat:"Ticketing" },
-{ name:"FXB", desc:"Best Buy Pricing", cat:"Ticketing" },
-{ name:"TTP", desc:"Issue Ticket", cat:"Ticketing" },
-{ name:"TKTL", desc:"Ticket Time Limit", cat:"Ticketing" },
+{
+name:"TTP",
+desc:"Issue Ticket",
+syntax:"TTP",
+example:"TTP",
+cat:"Ticketing"
+},
 
-/* Queue */
+{
+name:"TKTL",
+desc:"Ticket Time Limit",
+syntax:"TKTL/20APR",
+example:"TKTL/20APR",
+cat:"Ticketing"
+},
 
-{ name:"QP", desc:"Queue Place", cat:"Queue" },
-{ name:"QI", desc:"Queue Ignore", cat:"Queue" },
-{ name:"QR", desc:"Queue Remove", cat:"Queue" },
+{
+name:"RF",
+desc:"Received From",
+syntax:"RF ZUBAIR",
+example:"RF AHMED",
+cat:"PNR Creation"
+},
 
-/* SSR */
+{
+name:"ER",
+desc:"End and Retrieve",
+syntax:"ER",
+example:"ER",
+cat:"PNR Creation"
+},
 
-{ name:"SR", desc:"Add Special Service Request", cat:"SSR/OSI" },
-{ name:"OSI", desc:"Other Service Info", cat:"SSR/OSI" },
-
-/* Remarks */
-
-{ name:"RM", desc:"Add Remark", cat:"Remarks" },
-{ name:"FE", desc:"Fare Endorsement", cat:"Remarks" },
-
-/* Refund */
-
-{ name:"TRF", desc:"Refund Ticket", cat:"Refund" }
+{
+name:"RT",
+desc:"Retrieve PNR",
+syntax:"RT ABC123",
+example:"RT XYZ456",
+cat:"PNR Creation"
+}
 
 ];
 
-/* Navigation */
+/* NAVIGATION */
 
 function showDashboard(){
 
-document.getElementById("dashboard").style.display = "grid";
-document.getElementById("gdsModule").style.display = "none";
+document.getElementById("dashboard").style.display="grid";
+document.getElementById("gdsModule").style.display="none";
 
 }
 
 function openModule(module){
 
-document.getElementById("dashboard").style.display = "none";
+document.getElementById("dashboard").style.display="none";
 
-if(module === "gds"){
+if(module==="gds"){
 
-document.getElementById("gdsModule").style.display = "block";
-
-}
+document.getElementById("gdsModule").style.display="block";
 
 }
 
-/* Search */
+}
+
+/* SEARCH */
 
 function searchCommand(){
 
@@ -267,23 +367,21 @@ let input =
 document.getElementById("gdsSearch")
 .value.toUpperCase();
 
-let result = commands.filter(c =>
+let result =
+commands.filter(c =>
 c.name.includes(input)
 );
 
-let output = "";
+let output="";
 
 result.forEach(c=>{
 
 output += `
-<div class="result-item">
+<div class="result-item"
+onclick="showPopup('${c.name}')">
 
 <div class="command-title">
-${c.name}
-</div>
-
-<div class="command-desc">
-${c.desc}
+${c.name} — ${c.desc}
 </div>
 
 <div class="command-cat">
@@ -295,7 +393,39 @@ Category: ${c.cat}
 
 });
 
-document.getElementById("resultBox").innerHTML = output;
+document.getElementById("resultBox").innerHTML=output;
+
+}
+
+/* POPUP */
+
+function showPopup(cmd){
+
+let command =
+commands.find(c=>c.name===cmd);
+
+document.getElementById("popTitle")
+.innerHTML=command.name;
+
+document.getElementById("popDesc")
+.innerHTML="Description: "+command.desc;
+
+document.getElementById("popSyntax")
+.innerHTML="Syntax: "+command.syntax;
+
+document.getElementById("popExample")
+.innerHTML="Example: "+command.example;
+
+document.getElementById("popCategory")
+.innerHTML="Category: "+command.cat;
+
+document.getElementById("popup").style.display="block";
+
+}
+
+function closePopup(){
+
+document.getElementById("popup").style.display="none";
 
 }
 

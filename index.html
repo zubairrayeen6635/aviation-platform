@@ -10,8 +10,6 @@
 
 <style>
 
-/* Body */
-
 body {
 margin: 0;
 font-family: Arial, sans-serif;
@@ -48,7 +46,7 @@ font-size: 14px;
 background-color: #133c73;
 }
 
-/* Main Area */
+/* Main */
 
 .main {
 margin-left: 240px;
@@ -118,8 +116,18 @@ margin-top: 20px;
 }
 
 .result-item {
-padding: 8px;
+padding: 10px;
 border-bottom: 1px solid #eee;
+}
+
+.command-title {
+font-weight: bold;
+color: #0b2545;
+}
+
+.command-desc {
+font-size: 13px;
+color: #555;
 }
 
 </style>
@@ -136,24 +144,12 @@ border-bottom: 1px solid #eee;
 
 <a href="#" onclick="showDashboard()">Dashboard</a>
 <a href="#" onclick="openModule('gds')">GDS Commands</a>
-<a href="#">Airlines</a>
-<a href="#">Airports</a>
-<a href="#">Lounges</a>
-<a href="#">Alliances</a>
-<a href="#">Knowledge Hub</a>
-<a href="#">Passenger Help</a>
-<a href="#">Tools</a>
-<a href="#">Glossary</a>
-<a href="#">Simulation</a>
-<a href="#">Settings</a>
 
 </div>
 
 <!-- Main -->
 
 <div class="main">
-
-<!-- Header -->
 
 <div class="header">
 
@@ -165,48 +161,15 @@ placeholder="Search commands, airlines, airports..."
 
 </div>
 
-<!-- Dashboard Cards -->
+<!-- Dashboard -->
 
 <div id="dashboard" class="cards">
 
 <div class="card" onclick="openModule('gds')">
+
 <h3>🖥 GDS Command Center</h3>
-<p>Search Amadeus & Sabre commands</p>
-</div>
+<p>Search Amadeus Commands</p>
 
-<div class="card">
-<h3>✈ Airline Directory</h3>
-<p>Find airline hubs and details</p>
-</div>
-
-<div class="card">
-<h3>🌍 Airport Directory</h3>
-<p>Access global airport information</p>
-</div>
-
-<div class="card">
-<h3>🛋 Lounge Directory</h3>
-<p>Check lounge access & facilities</p>
-</div>
-
-<div class="card">
-<h3>📚 Knowledge Hub</h3>
-<p>Learn ticketing and aviation basics</p>
-</div>
-
-<div class="card">
-<h3>🧮 Tools & Calculators</h3>
-<p>Use aviation productivity tools</p>
-</div>
-
-<div class="card">
-<h3>📖 Glossary</h3>
-<p>Understand aviation terminology</p>
-</div>
-
-<div class="card">
-<h3>🎮 Simulation Mode</h3>
-<p>Practice ticketing workflows</p>
 </div>
 
 </div>
@@ -220,7 +183,7 @@ placeholder="Search commands, airlines, airports..."
 <input 
 type="text"
 id="gdsSearch"
-placeholder="Type command like AN, NM, SS..."
+placeholder="Type command like AN, NM, FXP..."
 onkeyup="searchCommand()"
 class="search-box"
 >
@@ -231,31 +194,44 @@ class="search-box"
 
 </div>
 
-<!-- JavaScript -->
-
 <script>
 
-/* Sample GDS Commands */
+/* Real GDS Commands */
 
 const commands = [
 
-{ name: "AN", desc: "Availability Neutral" },
+{ name:"AN", desc:"Availability Neutral" },
+{ name:"SS", desc:"Sell Seat" },
+{ name:"NM", desc:"Name Entry" },
+{ name:"AP", desc:"Add Phone Contact" },
+{ name:"TKTL", desc:"Ticket Time Limit" },
+{ name:"RF", desc:"Received From" },
+{ name:"ER", desc:"End and Retrieve" },
+{ name:"ET", desc:"End Transaction" },
+{ name:"IG", desc:"Ignore PNR" },
+{ name:"RT", desc:"Retrieve PNR" },
 
-{ name: "NM", desc: "Name Entry" },
+{ name:"FXP", desc:"Price Itinerary" },
+{ name:"FXB", desc:"Best Buy Pricing" },
+{ name:"TTP", desc:"Issue Ticket" },
+{ name:"TRF", desc:"Refund Ticket" },
 
-{ name: "SS", desc: "Sell Seat" },
+{ name:"HE", desc:"Help Entry" },
+{ name:"HE AN", desc:"Help for Availability" },
 
-{ name: "TKTL", desc: "Ticket Time Limit" },
+{ name:"DO", desc:"Display Flight Info" },
+{ name:"MD", desc:"Move Down Screen" },
+{ name:"MU", desc:"Move Up Screen" },
 
-{ name: "FXP", desc: "Price Itinerary" },
+{ name:"QP", desc:"Queue Place" },
+{ name:"QI", desc:"Queue Ignore" },
+{ name:"QR", desc:"Queue Remove" },
 
-{ name: "ER", desc: "End and Retrieve" },
+{ name:"SR", desc:"Add Special Service Request" },
+{ name:"OSI", desc:"Other Service Info" },
 
-{ name: "RF", desc: "Received From" },
-
-{ name: "RT", desc: "Retrieve PNR" },
-
-{ name: "IG", desc: "Ignore PNR" }
+{ name:"RM", desc:"Add Remark" },
+{ name:"FE", desc:"Fare Endorsement" }
 
 ];
 
@@ -301,7 +277,15 @@ result.forEach(c=>{
 
 output += `
 <div class="result-item">
-<b>${c.name}</b> — ${c.desc}
+
+<div class="command-title">
+${c.name}
+</div>
+
+<div class="command-desc">
+${c.desc}
+</div>
+
 </div>
 `;
 

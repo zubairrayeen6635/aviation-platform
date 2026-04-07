@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Aviation Professional Toolkit</title>
+
+<style>
+
+body {
+margin: 0;
+font-family: Arial, sans-serif;
+background-color: #f4f7fb;
+}
+
+.sidebar {
+position: fixed;
+left: 0;
+top: 0;
+width: 240px;
+height: 100%;
+background-color: #0b2545;
+color: white;
+padding-top: 20px;
+}
+
+.sidebar h2 {
+text-align: center;
+margin-bottom: 20px;
+}
+
+.sidebar a {
+display: block;
+padding: 12px 20px;
+color: white;
+text-decoration: none;
+font-size: 14px;
+}
+
+.sidebar a:hover {
+background-color: #133c73;
+}
+
+.main {
+margin-left: 240px;
+padding: 20px;
+}
+
+.header {
+background-color: white;
+padding: 15px;
+border-radius: 8px;
+margin-bottom: 20px;
+box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.search-box {
+width: 100%;
+padding: 10px;
+border-radius: 6px;
+border: 1px solid #ccc;
+}
+
+.cards {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+gap: 20px;
+}
+
+.card {
+background-color: white;
+padding: 20px;
+border-radius: 10px;
+box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+cursor: pointer;
+transition: 0.2s;
+}
+
+.card:hover {
+transform: translateY(-3px);
+}
+
+.card h3 {
+margin: 0;
+font-size: 16px;
+color: #0b2545;
+}
+
+.card p {
+font-size: 13px;
+color: #666;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="sidebar">
+
+<h2>✈ Aviation</h2>
+
+<a href="#">Dashboard</a>
+<a href="#">GDS Commands</a>
+<a href="#">Airlines</a>
+<a href="#">Airports</a>
+<a href="#">Lounges</a>
+<a href="#">Alliances</a>
+<a href="#">Knowledge Hub</a>
+<a href="#">Passenger Help</a>
+<a href="#">Tools</a>
+<a href="#">Glossary</a>
+<a href="#">Simulation</a>
+<a href="#">Settings</a>
+
+</div>
+
+<div class="main">
+
+<div class="header">
+
+<input 
+type="text" 
+class="search-box" 
+placeholder="Search commands, airlines, airports..."
+>
+
+</div>
+
+<div class="cards">
+
+<div class="card">
+<h3>GDS Command Center</h3>
+<p>Search Amadeus & Sabre commands</p>
+</div>
+
+<div class="card">
+<h3>Airline Directory</h3>
+<p>Find airline hubs and details</p>
+</div>
+
+<div class="card">
+<h3>Airport Directory</h3>
+<p>Access global airport information</p>
+</div>
+
+<div class="card">
+<h3>Lounge Directory</h3>
+<p>Check lounge access & facilities</p>
+</div>
+
+<div class="card">
+<h3>Knowledge Hub</h3>
+<p>Learn ticketing and aviation basics</p>
+</div>
+
+<div class="card">
+<h3>Tools & Calculators</h3>
+<p>Use aviation productivity tools</p>
+</div>
+
+<div class="card">
+<h3>Glossary</h3>
+<p>Understand aviation terminology</p>
+</div>
+
+<div class="card">
+<h3>Simulation Mode</h3>
+<p>Practice ticketing workflows</p>
+</div>
+
+</div>
+
+</div>
+
+</body>
+
+</html>

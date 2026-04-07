@@ -64,7 +64,7 @@ margin-bottom: 20px;
 box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-/* Cards */
+/* Dashboard Cards */
 
 .cards {
 display: grid;
@@ -94,6 +94,22 @@ padding: 20px;
 border-radius: 10px;
 box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 margin-top: 20px;
+}
+
+/* Buttons */
+
+.back-btn {
+margin-bottom: 10px;
+padding: 8px 14px;
+background-color: #0b2545;
+color: white;
+border: none;
+border-radius: 6px;
+cursor: pointer;
+}
+
+.back-btn:hover {
+background-color: #133c73;
 }
 
 /* Search */
@@ -154,20 +170,6 @@ font-weight: bold;
 color: red;
 }
 
-.back-btn {
-margin-bottom: 10px;
-padding: 8px 14px;
-background-color: #0b2545;
-color: white;
-border: none;
-border-radius: 6px;
-cursor: pointer;
-}
-
-.back-btn:hover {
-background-color: #133c73;
-}
-
 </style>
 
 </head>
@@ -182,6 +184,8 @@ background-color: #133c73;
 
 <a onclick="showDashboard()">Dashboard</a>
 <a onclick="openModule('gds')">GDS Commands</a>
+<a onclick="openModule('airport')">Airport Directory</a>
+<a onclick="openModule('pnr')">PNR Simulation</a>
 
 </div>
 
@@ -198,10 +202,18 @@ background-color: #133c73;
 <div id="dashboard" class="cards">
 
 <div class="card" onclick="openModule('gds')">
-
 <h3>🖥 GDS Command Center</h3>
 <p>Search professional commands</p>
+</div>
 
+<div class="card" onclick="openModule('airport')">
+<h3>🌍 Airport Directory</h3>
+<p>Search airport codes</p>
+</div>
+
+<div class="card" onclick="openModule('pnr')">
+<h3>🎮 PNR Simulation</h3>
+<p>Create booking workflow</p>
 </div>
 
 </div>
@@ -217,12 +229,72 @@ background-color: #133c73;
 <input 
 type="text"
 id="gdsSearch"
-placeholder="Search command like AN, NM, FXP..."
+placeholder="Search command like AN, NM..."
 onkeyup="searchCommand()"
 class="search-box"
 >
 
 <div id="resultBox"></div>
+
+</div>
+
+<!-- AIRPORT MODULE -->
+
+<div id="airportModule" class="module">
+
+<button class="back-btn" onclick="showDashboard()">← Back</button>
+
+<h2>Airport Directory</h2>
+
+<input 
+type="text"
+id="airportSearch"
+placeholder="Search airport like DEL..."
+onkeyup="searchAirport()"
+class="search-box"
+>
+
+<div id="airportResult"></div>
+
+</div>
+
+<!-- PNR MODULE -->
+
+<div id="pnrModule" class="module">
+
+<button class="back-btn" onclick="showDashboard()">← Back</button>
+
+<h2>PNR Simulation</h2>
+
+<h3>Passenger Name</h3>
+
+<input 
+type="text"
+id="passengerName"
+placeholder="Enter passenger name"
+class="search-box"
+>
+
+<h3>Flight Number</h3>
+
+<input 
+type="text"
+id="flightNumber"
+placeholder="Enter flight number"
+class="search-box"
+>
+
+<br><br>
+
+<button onclick="pricePNR()" class="back-btn">
+Price Ticket
+</button>
+
+<button onclick="issuePNR()" class="back-btn">
+Issue Ticket
+</button>
+
+<div id="pnrOutput" style="margin-top:20px;"></div>
 
 </div>
 
@@ -252,7 +324,36 @@ class="search-box"
 
 <script>
 
-/* MASTER COMMAND DATABASE */
+/* NAVIGATION */
+
+function showDashboard(){
+
+document.getElementById("dashboard").style.display="grid";
+
+document.getElementById("gdsModule").style.display="none";
+document.getElementById("airportModule").style.display="none";
+document.getElementById("pnrModule").style.display="none";
+
+}
+
+function openModule(module){
+
+showDashboard();
+
+document.getElementById("dashboard").style.display="none";
+
+if(module==="gds")
+document.getElementById("gdsModule").style.display="block";
+
+if(module==="airport")
+document.getElementById("airportModule").style.display="block";
+
+if(module==="pnr")
+document.getElementById("pnrModule").style.display="block";
+
+}
+
+/* GDS COMMANDS */
 
 const commands = [
 
@@ -273,22 +374,6 @@ cat:"PNR Creation"
 },
 
 {
-name:"SS",
-desc:"Sell Seat",
-syntax:"SS1Y1",
-example:"SS1Y1",
-cat:"Booking"
-},
-
-{
-name:"AP",
-desc:"Add Phone Contact",
-syntax:"AP 9876543210",
-example:"AP DEL 9876543210",
-cat:"PNR Creation"
-},
-
-{
 name:"FXP",
 desc:"Price Itinerary",
 syntax:"FXP",
@@ -302,64 +387,9 @@ desc:"Issue Ticket",
 syntax:"TTP",
 example:"TTP",
 cat:"Ticketing"
-},
-
-{
-name:"TKTL",
-desc:"Ticket Time Limit",
-syntax:"TKTL/20APR",
-example:"TKTL/20APR",
-cat:"Ticketing"
-},
-
-{
-name:"RF",
-desc:"Received From",
-syntax:"RF ZUBAIR",
-example:"RF AHMED",
-cat:"PNR Creation"
-},
-
-{
-name:"ER",
-desc:"End and Retrieve",
-syntax:"ER",
-example:"ER",
-cat:"PNR Creation"
-},
-
-{
-name:"RT",
-desc:"Retrieve PNR",
-syntax:"RT ABC123",
-example:"RT XYZ456",
-cat:"PNR Creation"
 }
 
 ];
-
-/* NAVIGATION */
-
-function showDashboard(){
-
-document.getElementById("dashboard").style.display="grid";
-document.getElementById("gdsModule").style.display="none";
-
-}
-
-function openModule(module){
-
-document.getElementById("dashboard").style.display="none";
-
-if(module==="gds"){
-
-document.getElementById("gdsModule").style.display="block";
-
-}
-
-}
-
-/* SEARCH */
 
 function searchCommand(){
 
@@ -397,8 +427,6 @@ document.getElementById("resultBox").innerHTML=output;
 
 }
 
-/* POPUP */
-
 function showPopup(cmd){
 
 let command =
@@ -426,6 +454,128 @@ document.getElementById("popup").style.display="block";
 function closePopup(){
 
 document.getElementById("popup").style.display="none";
+
+}
+
+/* AIRPORT DATABASE */
+
+const airports = [
+
+{ code:"DEL", name:"Indira Gandhi International Airport", city:"Delhi", country:"India" },
+
+{ code:"BOM", name:"Mumbai International Airport", city:"Mumbai", country:"India" },
+
+{ code:"LKO", name:"Lucknow Airport", city:"Lucknow", country:"India" },
+
+{ code:"DXB", name:"Dubai International Airport", city:"Dubai", country:"UAE" },
+
+{ code:"DOH", name:"Hamad International Airport", city:"Doha", country:"Qatar" }
+
+];
+
+function searchAirport(){
+
+let input =
+document.getElementById("airportSearch")
+.value.toUpperCase();
+
+let result =
+airports.filter(a =>
+a.code.includes(input) ||
+a.city.toUpperCase().includes(input)
+);
+
+let output="";
+
+result.forEach(a=>{
+
+output += `
+<div class="result-item">
+
+<div class="command-title">
+${a.code} — ${a.name}
+</div>
+
+<div class="command-cat">
+${a.city}, ${a.country}
+</div>
+
+</div>
+`;
+
+});
+
+document.getElementById("airportResult").innerHTML=output;
+
+}
+
+/* PNR SIMULATION */
+
+function pricePNR(){
+
+let name =
+document.getElementById("passengerName").value;
+
+let flight =
+document.getElementById("flightNumber").value;
+
+if(name==="" || flight===""){
+
+alert("Enter passenger & flight");
+
+return;
+
+}
+
+document.getElementById("pnrOutput").innerHTML=
+
+`
+<div class="result-item">
+
+<b>PNR Status:</b> PRICED <br>
+
+Passenger: ${name} <br>
+
+Flight: ${flight} <br>
+
+Fare: ₹ 5,250
+
+</div>
+`;
+
+}
+
+function issuePNR(){
+
+let name =
+document.getElementById("passengerName").value;
+
+let flight =
+document.getElementById("flightNumber").value;
+
+if(name==="" || flight===""){
+
+alert("Enter passenger & flight");
+
+return;
+
+}
+
+document.getElementById("pnrOutput").innerHTML=
+
+`
+<div class="result-item">
+
+<b>PNR Status:</b> TICKETED 🎫 <br>
+
+Passenger: ${name} <br>
+
+Flight: ${flight} <br>
+
+Ticket Number: 098-1234567890
+
+</div>
+`;
 
 }
 

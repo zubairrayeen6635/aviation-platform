@@ -13,15 +13,13 @@ body {
 font-family: 'Inter', sans-serif;
 
 background:
-radial-gradient(
-circle at top,
-#0f172a,
-#020617
+linear-gradient(
+180deg,
+#020202,
+#0a0a0a
 );
 
-color: white;
-
-overflow-x: hidden;
+color: #e5e7eb;
 
 }
 
@@ -29,62 +27,97 @@ overflow-x: hidden;
 
 .sidebar {
 
-width: 250px;
+width: 260px;
+
 height: 100vh;
 
 position: fixed;
 
 background:
+
 linear-gradient(
 180deg,
-#020617,
-#020617,
-#020617
+#050505,
+#020202
 );
 
-padding: 28px 18px;
+padding: 28px 20px;
 
 border-right:
-1px solid rgba(255,255,255,0.05);
+
+1px solid rgba(212,175,55,0.12);
 
 box-shadow:
-8px 0 30px rgba(0,0,0,0.8);
+
+6px 0 40px rgba(0,0,0,0.9);
 
 }
 
-/* LOGO */
+/* BRAND HEADER */
 
-.logo {
+.brand-header {
 
-font-size: 20px;
+display: flex;
 
-font-weight: 600;
+gap: 14px;
 
-letter-spacing: 0.5px;
-
-margin-bottom: 45px;
-
-color:
-
-#facc15; /* GOLD */
+margin-bottom: 36px;
 
 }
 
-/* SIDEBAR LINKS */
+/* BRAND ICON */
+
+.brand-logo {
+
+font-size: 28px;
+
+color: #d4af37; /* Champagne Gold */
+
+}
+
+/* BRAND NAME */
+
+.brand-name {
+
+font-size: 22px;
+
+font-weight: 700;
+
+letter-spacing: 1px;
+
+color: #ffffff;
+
+}
+
+/* TAGLINE */
+
+.brand-tagline {
+
+font-size: 12px;
+
+color: #9ca3af;
+
+margin-top: 4px;
+
+line-height: 1.4;
+
+}
+
+/* NAV LINKS */
 
 .sidebar nav a {
 
 display: block;
 
-padding: 14px 16px;
+padding: 13px 16px;
 
 margin-bottom: 8px;
 
-border-radius: 12px;
+border-radius: 10px;
 
 font-size: 14px;
 
-color: #94a3b8;
+color: #9ca3af;
 
 text-decoration: none;
 
@@ -100,11 +133,11 @@ background:
 
 linear-gradient(
 90deg,
-rgba(59,130,246,0.2),
-rgba(250,204,21,0.15)
+rgba(212,175,55,0.18),
+rgba(255,255,255,0.05)
 );
 
-color: white;
+color: #ffffff;
 
 transform: translateX(4px);
 
@@ -114,65 +147,13 @@ transform: translateX(4px);
 
 .main {
 
-margin-left: 250px;
+margin-left: 260px;
 
 padding: 32px;
 
 }
 
-/* TOPBAR */
-
-.topbar {
-
-display: flex;
-
-justify-content: space-between;
-
-align-items: center;
-
-margin-bottom: 34px;
-
-}
-
-/* SEARCH */
-
-.global-search {
-
-width: 50%;
-
-padding: 14px 18px;
-
-border-radius: 14px;
-
-border:
-
-1px solid rgba(255,255,255,0.08);
-
-background:
-
-rgba(255,255,255,0.03);
-
-backdrop-filter: blur(10px);
-
-color: white;
-
-outline: none;
-
-font-size: 14px;
-
-}
-
-/* USER */
-
-.user {
-
-font-size: 14px;
-
-color: #94a3b8;
-
-}
-
-/* DASHBOARD */
+/* DASHBOARD GRID */
 
 .dashboard {
 
@@ -186,64 +167,31 @@ gap: 26px;
 
 }
 
-/* PREMIUM CARDS */
+/* EXECUTIVE CARDS */
 
 .card {
 
-position: relative;
-
 padding: 26px;
 
-border-radius: 18px;
+border-radius: 16px;
 
 background:
 
 linear-gradient(
 145deg,
-rgba(255,255,255,0.05),
-rgba(255,255,255,0.02)
+rgba(255,255,255,0.03),
+rgba(255,255,255,0.01)
 );
-
-backdrop-filter: blur(16px);
 
 border:
 
-1px solid rgba(255,255,255,0.08);
+1px solid rgba(212,175,55,0.12);
 
 box-shadow:
 
-0 15px 40px rgba(0,0,0,0.7);
+0 20px 50px rgba(0,0,0,0.8);
 
-transition: 0.35s;
-
-overflow: hidden;
-
-}
-
-/* CARD GLOW EFFECT */
-
-.card::before {
-
-content: "";
-
-position: absolute;
-
-top: 0;
-left: -100%;
-
-width: 100%;
-height: 100%;
-
-background:
-
-linear-gradient(
-120deg,
-transparent,
-rgba(250,204,21,0.3),
-transparent
-);
-
-transition: 0.6s;
+transition: 0.3s;
 
 }
 
@@ -253,24 +201,15 @@ transition: 0.6s;
 
 transform:
 
-translateY(-10px)
-scale(1.02);
-
-box-shadow:
-
-0 25px 60px rgba(59,130,246,0.25);
+translateY(-8px);
 
 border-color:
 
-rgba(250,204,21,0.3);
+rgba(212,175,55,0.4);
 
-}
+box-shadow:
 
-/* SHINE EFFECT */
-
-.card:hover::before {
-
-left: 100%;
+0 30px 60px rgba(212,175,55,0.15);
 
 }
 
@@ -278,11 +217,9 @@ left: 100%;
 
 .card h3 {
 
-font-size: 20px;
+font-size: 18px;
 
 margin-bottom: 10px;
-
-font-weight: 600;
 
 color: white;
 
@@ -294,42 +231,42 @@ color: white;
 
 font-size: 14px;
 
+color: #9ca3af;
+
 line-height: 1.6;
 
-color: #94a3b8;
+}
+
+/* BRAND SIGNATURE */
+
+.brand-signature {
+
+position: fixed;
+
+bottom: 18px;
+
+right: 30px;
+
+font-size: 13px;
+
+color: rgba(255,255,255,0.35);
+
+letter-spacing: 0.6px;
 
 }
 
-/* GOLD ACCENT LINE */
+/* SIGNATURE NAME */
 
-.card::after {
+.brand-signature span {
 
-content: "";
+font-family: 'Playfair Display', serif;
 
-position: absolute;
+font-size: 16px;
 
-bottom: 0;
-left: 0;
+margin-left: 6px;
 
-width: 100%;
-height: 3px;
+color: #d4af37;
 
-background:
-
-linear-gradient(
-90deg,
-#3b82f6,
-#facc15
-);
-
-opacity: 0;
-
-transition: 0.4s;
-
-}
-
-.card:hover::after {
-
-opacity: 1;
+letter-spacing: 1px;
 
 }
